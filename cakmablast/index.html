@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Block Blast Duo - Professional Edition</title>
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-panel: #131c2e;
+            --bg-cell: #1e293b;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --accent-p1: #ef4444;
+            --accent-p1-glow: rgba(239, 68, 68, 0.4);
+            --accent-p2: #10b981;
+            --accent-p2-glow: rgba(16, 185, 129, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+            --border-glow: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        /* GİRİŞ VE MENÜ EKRANI */
+        #menu-screen {
+            background: linear-gradient(145deg, var(--bg-panel), #16223f);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 100;
+            transition: all 0.5s ease;
+        }
+
+        .logo-area {
+            margin-bottom: 35px;
+        }
+
+        .logo-area h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .logo-area p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid #273549;
+            color: #fff;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .btn-premium {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.4);
+        }
+
+        /* OYUN ARA YÜZÜ */
+        #game-screen {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .header-bar {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-panel);
+            padding: 12px 20px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px;
+        }
+
+        .status-badge {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #60a5fa;
+            animation: pulse 2s infinite;
+        }
+
+        .boards-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 480px;
+            gap: 15px;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .arena-panel {
+            background: var(--bg-panel);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .arena-panel.opponent-panel {
+            transform: scale(0.85);
+            opacity: 0.6;
+            margin-bottom: -10px;
+            margin-top: -10px;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+        }
+
+        .panel-title span.score {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .grid-board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            gap: 3px;
+            background: #0f172a;
+            padding: 6px;
+            border-radius: 12px;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+        }
+
+        .cell {
+            background: var(--bg-cell);
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .cell.filled-p1 {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .cell.filled-p2 {
+            background: linear-gradient(135deg, #34d399, #10b981);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .cell.preview {
+            background: rgba(255, 255, 255, 0.25) !important;
+            border: 2px dashed rgba(255, 255, 255, 0.6);
+        }
+
+        .inventory-area {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-panel);
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            min-height: 110px;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.2);
+        }
+
+        .piece-holder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+            aspect-ratio: 1 / 1;
+            cursor: grab;
+            position: relative;
+            z-index: 10;
+        }
+
+        .piece-matrix {
+            display: grid;
+            gap: 2px;
+            transform: scale(0.8);
+        }
+
+        .p-cell {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+
+        .p-cell.active-p1 {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+        }
+
+        .p-cell.active-p2 {
+            background: linear-gradient(135deg, #34d399, #10b981);
+        }
+
+        /* AKILLI ERGONOMİK SÜRÜKLEME KLONU */
+        .dragging-active {
+            position: fixed;
+            pointer-events: none; /* Altındaki katmanları engellemesin */
+            transform: scale(1.1);
+            z-index: 1000;
+            opacity: 0.85;
+        }
+
+        #game-over-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.95);
+            z-index: 2000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .overlay-card {
+            background: var(--bg-panel);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 340px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        @media (min-width: 768px) {
+            .boards-wrapper { flex-direction: row; max-width: 950px; gap: 30px; }
+            .arena-panel.opponent-panel { transform: scale(1); opacity: 1; margin: 0; }
+            #game-screen { padding: 40px; }
+            .header-bar, .inventory-area { max-width: 950px; }
+            .p-cell { width: 24px; height: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu-screen">
+        <div class="logo-area">
+            <h1>Block Blast</h1>
+            <p>Online Multiplayer Battle</p>
+        </div>
+        <div class="input-group">
+            <input type="text" id="room-id-input" placeholder="Oda Kodu Yazın" maxlength="12">
+        </div>
+        <button class="btn-premium" id="btn-connect">ODAYA KATIL / OLUŞTUR</button>
+    </div>
+
+    <div id="game-screen">
+        <div class="header-bar">
+            <div style="font-weight: 700; letter-spacing: 0.5px;">ROOM: <span id="display-room-id" style="color:var(--primary)">-</span></div>
+            <div class="status-badge" id="match-status">RAKİP BEKLENİYOR</div>
+        </div>
+
+        <div class="boards-wrapper">
+            <div class="arena-panel" id="local-panel">
+                <div class="panel-title">
+                    <span>SEN (Mavi/Kırmızı)</span>
+                    <span class="score">SKOR: <b id="score-local">0</b></span>
+                </div>
+                <div class="grid-board" id="board-local"></div>
+            </div>
+
+            <div class="arena-panel opponent-panel" id="remote-panel">
+                <div class="panel-title">
+                    <span>RAKİP (Yeşil)</span>
+                    <span class="score">SKOR: <b id="score-remote">0</b></span>
+                </div>
+                <div class="grid-board" id="board-remote"></div>
+            </div>
+        </div>
+
+        <div class="inventory-area" id="inventory"></div>
+    </div>
+
+    <div id="game-over-overlay">
+        <div class="overlay-card">
+            <h2 id="game-over-title" style="color:#ef4444; font-size:26px; margin-bottom:10px;">HAMLE KALMADI</h2>
+            <p id="game-over-msg" style="color:var(--text-muted); font-size:15px; margin-bottom:25px;">Rakibinin hamlelerinin bitmesi bekleniyor...</p>
+            
+            <div style="background:#0b0f19; padding:15px; border-radius:14px; margin-bottom:25px; text-align:left;">
+                <div style="display:flex; justify-content:between; margin-bottom:8px;">
+                    <span>Senin Skorun:</span> <b id="final-local-score" style="margin-left:auto; color:#fff;">0</b>
+                </div>
+                <div style="display:flex; justify-content:between;">
+                    <span>Rakip Skoru:</span> <b id="final-remote-score" style="margin-left:auto; color:#fff;">0</b>
+                </div>
+            </div>
+
+            <button class="btn-premium" onclick="window.location.reload()">YENİDEN OYNA</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // !!! BURAYI KENDİ FIREBASE BİLGİLERİNLE DEĞİŞTİR !!!
+        const firebaseConfig = {
+  apiKey: "AIzaSyDqVkR87Oxwv_F-5Ty-fPDG70_WTy9p7i8",
+  authDomain: "cakmablast.firebaseapp.com",
+  databaseURL: "https://cakmablast-default-rtdb.firebaseio.com",
+  projectId: "cakmablast",
+  storageBucket: "cakmablast.firebasestorage.app",
+  messagingSenderId: "1063000035304",
+  appId: "1:1063000035304:web:fc3dafa8945f5a289b1e5d",
+  measurementId: "G-14SKV6VER7"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // --- SES SİSTEMİ ---
+        const SoundFX = {
+            ctx: null,
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+            playClick() {
+                this.init(); if (this.ctx.state === 'suspended') this.ctx.resume();
+                let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(300, this.ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.1, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.08);
+            },
+            playPlace() {
+                this.init(); if (this.ctx.state === 'suspended') this.ctx.resume();
+                let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(180, this.ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(90, this.ctx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.3, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.15);
+            },
+            playExplode() {
+                this.init(); if (this.ctx.state === 'suspended') this.ctx.resume();
+                let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.type = 'square'; osc.frequency.setValueAtTime(200, this.ctx.currentTime); osc.frequency.linearRampToValueAtTime(600, this.ctx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.3);
+            }
+        };
+
+        // --- OYUN PARAMETRELERİ ---
+        let roomCode = "";
+        let playerSide = ""; 
+        let localGrid = Array(8).fill().map(() => Array(8).fill(0));
+        let localScore = 0;
+        let currentPieces = []; 
+
+        const PIECE_TEMPLATES = [
+            { matrix: [[1, 1], [1, 1]] },
+            { matrix: [[1, 1, 1, 1]] },
+            { matrix: [[1], [1], [1], [1]] },
+            { matrix: [[1, 0, 0], [1, 1, 1]] },
+            { matrix: [[0, 1], [0, 1], [1, 1]] },
+            { matrix: [[1, 1, 1], [0, 1, 0]] },
+            { matrix: [[1]] }
+        ];
+
+        const menuScreen = document.getElementById('menu-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const roomInput = document.getElementById('room-id-input');
+        const btnConnect = document.getElementById('btn-connect');
+        const displayRoomId = document.getElementById('display-room-id');
+        const matchStatus = document.getElementById('match-status');
+        const inventory = document.getElementById('inventory');
+        const boardLocal = document.getElementById('board-local');
+
+        btnConnect.addEventListener('click', () => {
+            SoundFX.init();
+            roomCode = roomInput.value.trim().toLowerCase();
+            if (!roomCode) { alert("Lütfen odaya bir isim verin!"); return; }
+
+            const roomRef = ref(db, 'blast_rooms/' + roomCode);
+
+            onValue(roomRef, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) {
+                    playerSide = "p1";
+                    set(roomRef, {
+                        p1: { score: 0, board: JSON.stringify(localGrid), isGameOver: false },
+                        status: "waiting"
+                    });
+                } else if (!data.p2) {
+                    if (playerSide === "") {
+                        playerSide = "p2";
+                        update(ref(db, `blast_rooms/${roomCode}/p2`), { score: 0, board: JSON.stringify(localGrid), isGameOver: false });
+                        update(roomRef, { status: "playing" });
+                    }
+                } else if (playerSide === "") {
+                    alert("Bu oda dolu!"); window.location.reload();
+                }
+                launchGameStream();
+            }, { onlyOnce: true });
+        });
+
+        function launchGameStream() {
+            menuScreen.style.display = 'none';
+            gameScreen.style.display = 'flex';
+            displayRoomId.innerText = roomCode.toUpperCase();
+
+            onValue(ref(db, `blast_rooms/${roomCode}`), (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+
+                if (data.status === "playing") {
+                    matchStatus.innerText = "MÜCADELE BAŞLADI";
+                    matchStatus.style.color = "#10b981";
+                }
+
+                if (playerSide === "p1") {
+                    document.getElementById('score-local').innerText = data.p1.score;
+                    if (data.p2) {
+                        document.getElementById('score-remote').innerText = data.p2.score;
+                        syncBoardDisplay('board-remote', JSON.parse(data.p2.board), 'filled-p2');
+                    }
+                } else {
+                    if (data.p2) document.getElementById('score-local').innerText = data.p2.score;
+                    if (data.p1) {
+                        document.getElementById('score-remote').innerText = data.p1.score;
+                        syncBoardDisplay('board-remote', JSON.parse(data.p1.board), 'filled-p1');
+                    }
+                }
+
+                if (data.p1 && data.p2) {
+                    if (data.p1.isGameOver && data.p2.isGameOver) {
+                        let winnerMsg = "";
+                        if (data.p1.score > data.p2.score) winnerMsg = "🏆 1. OYUNCU (P1) KAZANDI!";
+                        else if (data.p2.score > data.p1.score) winnerMsg = "🏆 2. OYUNCU (P2) KAZANDI!";
+                        else winnerMsg = "🤝 BERABERE BİTTİ!";
+
+                        document.getElementById('game-over-overlay').style.display = 'flex';
+                        document.getElementById('game-over-title').innerText = "MAÇ TAMAMLANDI";
+                        document.getElementById('game-over-title').style.color = "#f59e0b";
+                        document.getElementById('game-over-msg').innerText = winnerMsg;
+                        
+                        document.getElementById('final-local-score').innerText = playerSide === "p1" ? data.p1.score : data.p2.score;
+                        document.getElementById('final-remote-score').innerText = playerSide === "p1" ? data.p2.score : data.p1.score;
+                        matchStatus.innerText = "MAÇ BİTTİ";
+                    }
+                }
+            });
+
+            createLocalBoard();
+            spawnInventoryPieces();
+        }
+
+        function createLocalBoard() {
+            boardLocal.innerHTML = '';
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const cell = document.createElement('div'); cell.classList.add('cell');
+                    cell.dataset.row = r; cell.dataset.col = c; boardLocal.appendChild(cell);
+                }
+            }
+        }
+
+        function syncBoardDisplay(elementId, gridArray, className) {
+            const targetBoard = document.getElementById(elementId); targetBoard.innerHTML = '';
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const cell = document.createElement('div'); cell.classList.add('cell');
+                    if (gridArray[r][c] === 1) cell.classList.add(className); targetBoard.appendChild(cell);
+                }
+            }
+        }
+
+        function spawnInventoryPieces() {
+            inventory.innerHTML = '';
+            currentPieces = [];
+
+            for (let i = 0; i < 3; i++) {
+                const idx = Math.floor(Math.random() * PIECE_TEMPLATES.length);
+                const template = PIECE_TEMPLATES[idx];
+                const rows = template.matrix.length;
+                const cols = template.matrix[0].length;
+
+                const pieceObj = { matrix: template.matrix, rows, cols, id: 'piece_' + i + '_' + Date.now() };
+                currentPieces.push(pieceObj);
+
+                const holder = document.createElement('div'); holder.classList.add('piece-holder');
+                const matrixEl = document.createElement('div'); matrixEl.classList.add('piece-matrix');
+                matrixEl.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+                template.matrix.forEach(rowArray => {
+                    rowArray.forEach(val => {
+                        const pCell = document.createElement('div'); pCell.classList.add('p-cell');
+                        if (val === 1) pCell.classList.add(playerSide === 'p1' ? 'active-p1' : 'active-p2');
+                        else pCell.style.background = 'transparent';
+                        matrixEl.appendChild(pCell);
+                    });
+                });
+
+                holder.appendChild(matrixEl); inventory.appendChild(holder);
+                setupDragAndDrop(holder, pieceObj);
+            }
+
+            verifyGameOverState();
+        }
+
+        // --- %100 HATASIZ YENİ KONTROL VE SÜRÜKLEME MOTORU ---
+        function setupDragAndDrop(holder, pieceObj) {
+            let activeClone = null;
+            const yOffset = -60; // Mobil UX Ayarı: Bloğu parmağın 60px yukarısında taşır.
+
+            holder.addEventListener('pointerdown', (e) => {
+                e.preventDefault(); 
+                SoundFX.playClick();
+                holder.style.opacity = '0.3';
+
+                activeClone = holder.querySelector('.piece-matrix').cloneNode(true);
+                activeClone.classList.add('dragging-active');
+                document.body.appendChild(activeClone);
+
+                moveClone(e.clientX, e.clientY);
+                holder.setPointerCapture(e.pointerId);
+            });
+
+            holder.addEventListener('pointermove', (e) => {
+                if (!activeClone) return;
+                moveClone(e.clientX, e.clientY);
+                
+                // Önizleme koordinatlarını akıllı odak noktasına göre tarar
+                highlightPlacementPreview(e.clientX, e.clientY + yOffset, pieceObj);
+            });
+
+            holder.addEventListener('pointerup', (e) => {
+                if (!activeClone) return;
+                holder.releasePointerCapture(e.pointerId);
+                activeClone.remove();
+                activeClone = null;
+                holder.style.opacity = '1';
+                clearPreviews();
+
+                // Yerleştirme tetiği matematiksel odak noktası ile çalışır
+                const success = executePlacement(e.clientX, e.clientY + yOffset, pieceObj);
+                if (success) {
+                    holder.remove();
+                    currentPieces = currentPieces.filter(p => p.id !== pieceObj.id);
+
+                    if (currentPieces.length === 0) {
+                        spawnInventoryPieces(); 
+                    } else {
+                        verifyGameOverState();
+                    }
+                }
+            });
+
+            function moveClone(x, y) {
+                if (!activeClone) return;
+                // Klonun tam ortasını parmağa/fareye hizalar ve yOffset kadar yukarı kaldırır
+                const cloneWidth = pieceObj.cols * 20; 
+                const cloneHeight = pieceObj.rows * 20;
+                activeClone.style.left = `${x - (cloneWidth / 2)}px`;
+                activeClone.style.top = `${y - (cloneHeight / 2) + yOffset}px`;
+            }
+        }
+
+        // --- GERÇEK ZAMANLI MATEMATİKSEL IZGARA HESAPLAYICI ---
+        function getTargetCellFromCoords(x, y) {
+            const rect = boardLocal.getBoundingClientRect();
+            
+            // Koordinat 8x8 panel sınırları içerisinde mi?
+            if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                const cellWidth = rect.width / 8;
+                const cellHeight = rect.height / 8;
+                
+                // Koordinatın tahtadaki tam indis karşılığı (0-7 arası)
+                const c = Math.floor((x - rect.left) / cellWidth);
+                const r = Math.floor((y - rect.top) / cellHeight);
+                
+                if (r >= 0 && r < 8 && c >= 0 && c < 8) {
+                    return { r, c };
+                }
+            }
+            return null;
+        }
+
+        function clearPreviews() { document.querySelectorAll('#board-local .cell').forEach(c => c.classList.remove('preview')); }
+
+        function highlightPlacementPreview(x, y, pieceObj) {
+            clearPreviews();
+            const target = getTargetCellFromCoords(x, y);
+            if (!target) return;
+
+            if (target.r + pieceObj.rows <= 8 && target.c + pieceObj.cols <= 8) {
+                let valid = true;
+                for (let r = 0; r < pieceObj.rows; r++) {
+                    for (let c = 0; c < pieceObj.cols; c++) {
+                        if (pieceObj.matrix[r][c] === 1 && localGrid[target.r + r][target.c + c] === 1) valid = false;
+                    }
+                }
+                if (valid) {
+                    const localCells = document.querySelectorAll('#board-local .cell');
+                    for (let r = 0; r < pieceObj.rows; r++) {
+                        for (let c = 0; c < pieceObj.cols; c++) {
+                            if (pieceObj.matrix[r][c] === 1) {
+                                const idx = (target.r + r) * 8 + (target.c + c);
+                                if(localCells[idx]) localCells[idx].classList.add('preview');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function executePlacement(x, y, pieceObj) {
+            const target = getTargetCellFromCoords(x, y);
+            if (!target || target.r + pieceObj.rows > 8 || target.c + pieceObj.cols > 8) return false;
+
+            for (let r = 0; r < pieceObj.rows; r++) {
+                for (let c = 0; c < pieceObj.cols; c++) {
+                    if (pieceObj.matrix[r][c] === 1 && localGrid[target.r + r][target.c + c] === 1) return false;
+                }
+            }
+
+            for (let r = 0; r < pieceObj.rows; r++) {
+                for (let c = 0; c < pieceObj.cols; c++) {
+                    if (pieceObj.matrix[r][c] === 1) localGrid[target.r + r][target.c + c] = 1;
+                }
+            }
+
+            localScore += 15;
+            checkLinesAndExplode();
+            renderLocalUI();
+
+            update(ref(db, `blast_rooms/${roomCode}/${playerSide}`), {
+                score: localScore,
+                board: JSON.stringify(localGrid)
+            });
+
+            SoundFX.playPlace();
+            return true;
+        }
+
+        function renderLocalUI() {
+            const cells = document.querySelectorAll('#board-local .cell');
+            const myClass = playerSide === 'p1' ? 'filled-p1' : 'filled-p2';
+            let i = 0;
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    cells[i].className = 'cell';
+                    if (localGrid[r][c] === 1) cells[i].classList.add(myClass); i++;
+                }
+            }
+        }
+
+        function checkLinesAndExplode() {
+            let fullRows = []; let fullCols = [];
+            for (let r = 0; r < 8; r++) { if (localGrid[r].every(v => v === 1)) fullRows.push(r); }
+            for (let c = 0; c < 8; c++) {
+                let full = true; for (let r = 0; r < 8; r++) { if (localGrid[r][c] === 0) full = false; }
+                if (full) fullCols.push(c);
+            }
+            fullRows.forEach(r => localGrid[r].fill(0));
+            fullCols.forEach(c => { for (let r = 0; r < 8; r++) localGrid[r][c] = 0; });
+
+            if (fullRows.length > 0 || fullCols.length > 0) {
+                localScore += (fullRows.length + fullCols.length) * 120; SoundFX.playExplode();
+            }
+        }
+
+        function verifyGameOverState() {
+            if (currentPieces.length === 0) return;
+
+            let canMoveExist = false;
+
+            for (let piece of currentPieces) {
+                if (testPieceFitAnywhere(piece.matrix, piece.rows, piece.cols)) {
+                    canMoveExist = true;
+                    break; 
+                }
+            }
+
+            if (!canMoveExist) {
+                update(ref(db, `blast_rooms/${roomCode}/${playerSide}`), { isGameOver: true });
+                
+                document.getElementById('final-local-score').innerText = localScore;
+                document.getElementById('final-remote-score').innerText = document.getElementById('score-remote').innerText;
+
+                document.getElementById('game-over-overlay').style.display = 'flex';
+                document.getElementById('game-over-title').innerText = "HAMLE KALMADI";
+                document.getElementById('game-over-title').style.color = "#ef4444";
+                document.getElementById('game-over-msg').innerText = "Rakibinin hamlelerinin bitmesi bekleniyor...";
+                matchStatus.innerText = "ELENDİNİZ";
+                matchStatus.style.color = "#ef4444";
+            }
+        }
+
+        function testPieceFitAnywhere(matrix, rows, cols) {
+            for (let r = 0; r <= 8 - rows; r++) {
+                for (let c = 0; c <= 8 - cols; c++) {
+                    let fits = true;
+                    for (let pr = 0; pr < rows; pr++) {
+                        for (let pc = 0; pc < cols; pc++) {
+                            if (matrix[pr][pc] === 1 && localGrid[r + pr][c + pc] === 1) {
+                                fits = false; break;
+                            }
+                        }
+                        if (!fits) break;
+                    }
+                    if (fits) return true; 
+                }
+            }
+            return false; 
+        }
+    </script>
+</body>
+</html>
