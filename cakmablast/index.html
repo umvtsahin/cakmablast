@@ -11,13 +11,8 @@
             --bg-cell: #1e293b;
             --primary: #3b82f6;
             --primary-glow: rgba(59, 130, 246, 0.5);
-            --accent-p1: #ef4444;
-            --accent-p1-glow: rgba(239, 68, 68, 0.4);
-            --accent-p2: #10b981;
-            --accent-p2-glow: rgba(16, 185, 129, 0.4);
             --text-main: #f8fafc;
             --text-muted: #64748b;
-            --border-glow: #334155;
         }
 
         * {
@@ -52,11 +47,9 @@
             width: 90%;
             max-width: 400px;
             z-index: 100;
-            transition: all 0.5s ease;
         }
 
-        .logo-area {
-            margin-bottom: 35px;
+        .logo-area margin-bottom: 35px; {
         }
 
         .logo-area h1 {
@@ -77,7 +70,6 @@
 
         .input-group {
             margin-bottom: 20px;
-            position: relative;
         }
 
         input {
@@ -89,8 +81,8 @@
             border-radius: 14px;
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.3s;
             text-align: center;
+            transition: all 0.3s;
         }
 
         input:focus {
@@ -113,77 +105,88 @@
             transition: all 0.3s;
         }
 
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.4);
-        }
-
-        /* OYUN ARA YÜZÜ */
+        /* OYUN ARA YÜZÜ (MOBİL ÖNCELİKLİ ERGONOMİK DÜZEN) */
         #game-screen {
             display: none;
             width: 100%;
             height: 100vh;
+            height: 100dvh; /* Dinamik dikey yükseklik */
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 10px;
+            overflow: hidden;
         }
 
         .header-bar {
             width: 100%;
             max-width: 480px;
             background: var(--bg-panel);
-            padding: 12px 20px;
-            border-radius: 16px;
+            padding: 10px 16px;
+            border-radius: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 13px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-size: 14px;
         }
 
         .status-badge {
             background: rgba(255,255,255,0.05);
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
             color: #60a5fa;
             animation: pulse 2s infinite;
         }
 
+        /* TAHTALARI SARAN ALAN */
         .boards-wrapper {
             display: flex;
             flex-direction: column;
             width: 100%;
             max-width: 480px;
-            gap: 15px;
+            gap: 8px;
             flex-grow: 1;
             justify-content: center;
+            align-items: center;
+            min-height: 0; /* İçerik taşmasını engeller */
         }
 
         .arena-panel {
             background: var(--bg-panel);
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            /* Kısa ekranlı telefonlar için varsayılan güvenli genişlik */
+            max-width: 270px; 
+            transition: all 0.2s ease;
         }
 
+        /* Ekranı dikeyde geniş olan telefonlar için tahtayı büyüt */
+        @media (min-height: 700px) {
+            .arena-panel { max-width: 320px; padding: 12px; }
+        }
+
+        /* RAKİP PANELİ - MOBİLDE YER KAPLAMAMASI İÇİN KÜÇÜLTÜLDÜ (MINI-BOARD) */
         .arena-panel.opponent-panel {
-            transform: scale(0.85);
-            opacity: 0.6;
-            margin-bottom: -10px;
-            margin-top: -10px;
+            max-width: 140px;
+            opacity: 0.65;
             pointer-events: none;
-            transition: all 0.3s;
+        }
+        @media (min-height: 700px) {
+            .arena-panel.opponent-panel { max-width: 170px; }
         }
 
         .panel-title {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
             display: flex;
             justify-content: space-between;
             color: var(--text-muted);
@@ -191,53 +194,55 @@
 
         .panel-title span.score {
             color: #fff;
-            font-size: 15px;
+            font-size: 12px;
         }
 
         .grid-board {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: repeat(8, 1fr);
-            gap: 3px;
+            gap: 2px;
             background: #0f172a;
-            padding: 6px;
-            border-radius: 12px;
+            padding: 4px;
+            border-radius: 10px;
             aspect-ratio: 1 / 1;
             width: 100%;
         }
 
         .cell {
             background: var(--bg-cell);
-            border-radius: 6px;
-            transition: background 0.15s;
+            border-radius: 4px;
         }
 
         .cell.filled-p1 {
             background: linear-gradient(135deg, #f87171, #ef4444);
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.3);
         }
 
         .cell.filled-p2 {
             background: linear-gradient(135deg, #34d399, #10b981);
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.3);
         }
 
         .cell.preview {
-            background: rgba(255, 255, 255, 0.25) !important;
-            border: 2px dashed rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.3) !important;
+            border: 1.5px dashed rgba(255, 255, 255, 0.7);
         }
 
+        /* BLOK SEÇİM ALANI (ASLA AŞAĞI KAÇMAZ) */
         .inventory-area {
             width: 100%;
             max-width: 480px;
             background: var(--bg-panel);
-            border-radius: 20px;
-            padding: 15px;
+            border-radius: 18px;
+            padding: 10px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            min-height: 110px;
+            min-height: 95px;
+            max-height: 110px;
             box-shadow: 0 -5px 25px rgba(0,0,0,0.2);
+            margin-top: auto;
         }
 
         .piece-holder {
@@ -248,34 +253,33 @@
             aspect-ratio: 1 / 1;
             cursor: grab;
             position: relative;
-            z-index: 10;
         }
 
         .piece-matrix {
             display: grid;
-            gap: 2px;
-            transform: scale(0.8);
+            gap: 1.5px;
+            transform: scale(0.75);
         }
 
         .p-cell {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
         }
 
-        .p-cell.active-p1 {
-            background: linear-gradient(135deg, #f87171, #ef4444);
+        @media (min-height: 700px) {
+            .p-cell { width: 19px; height: 19px; }
+            .inventory-area { min-height: 115px; }
         }
 
-        .p-cell.active-p2 {
-            background: linear-gradient(135deg, #34d399, #10b981);
-        }
+        .p-cell.active-p1 { background: linear-gradient(135deg, #f87171, #ef4444); }
+        .p-cell.active-p2 { background: linear-gradient(135deg, #34d399, #10b981); }
 
-        /* AKILLI ERGONOMİK SÜRÜKLEME KLONU */
+        /* S SÜRÜKLEME KLONU */
         .dragging-active {
             position: fixed;
-            pointer-events: none; /* Altındaki katmanları engellemesin */
-            transform: scale(1.1);
+            pointer-events: none;
+            transform: scale(1.15);
             z-index: 1000;
             opacity: 0.85;
         }
@@ -297,7 +301,6 @@
             background: var(--bg-panel);
             padding: 30px;
             border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             width: 100%;
             max-width: 340px;
         }
@@ -308,12 +311,16 @@
             100% { opacity: 0.6; }
         }
 
+        /* MASAÜSTÜ / BÜYÜK EKRAN DÜZENİ */
         @media (min-width: 768px) {
             .boards-wrapper { flex-direction: row; max-width: 950px; gap: 30px; }
-            .arena-panel.opponent-panel { transform: scale(1); opacity: 1; margin: 0; }
-            #game-screen { padding: 40px; }
+            .arena-panel { max-width: 380px; padding: 15px; }
+            .arena-panel.opponent-panel { max-width: 380px; opacity: 1; pointer-events: auto; }
+            #game-screen { padding: 30px; }
             .header-bar, .inventory-area { max-width: 950px; }
-            .p-cell { width: 24px; height: 24px; }
+            .p-cell { width: 22px; height: 22px; }
+            .panel-title { font-size: 13px; }
+            .panel-title span.score { font-size: 15px; }
         }
     </style>
 </head>
@@ -337,20 +344,20 @@
         </div>
 
         <div class="boards-wrapper">
+            <div class="arena-panel opponent-panel" id="remote-panel">
+                <div class="panel-title">
+                    <span>RAKİP (Yeşil)</span>
+                    <span class="score"><b id="score-remote">0</b></span>
+                </div>
+                <div class="grid-board" id="board-remote"></div>
+            </div>
+
             <div class="arena-panel" id="local-panel">
                 <div class="panel-title">
                     <span>SEN (Mavi/Kırmızı)</span>
                     <span class="score">SKOR: <b id="score-local">0</b></span>
                 </div>
                 <div class="grid-board" id="board-local"></div>
-            </div>
-
-            <div class="arena-panel opponent-panel" id="remote-panel">
-                <div class="panel-title">
-                    <span>RAKİP (Yeşil)</span>
-                    <span class="score">SKOR: <b id="score-remote">0</b></span>
-                </div>
-                <div class="grid-board" id="board-remote"></div>
             </div>
         </div>
 
@@ -579,10 +586,9 @@
             verifyGameOverState();
         }
 
-        // --- %100 HATASIZ YENİ KONTROL VE SÜRÜKLEME MOTORU ---
         function setupDragAndDrop(holder, pieceObj) {
             let activeClone = null;
-            const yOffset = -60; // Mobil UX Ayarı: Bloğu parmağın 60px yukarısında taşır.
+            const yOffset = -60; // Parmağın bloğu kapatmaması için yukarı kaydırma mesafesi
 
             holder.addEventListener('pointerdown', (e) => {
                 e.preventDefault(); 
@@ -600,8 +606,6 @@
             holder.addEventListener('pointermove', (e) => {
                 if (!activeClone) return;
                 moveClone(e.clientX, e.clientY);
-                
-                // Önizleme koordinatlarını akıllı odak noktasına göre tarar
                 highlightPlacementPreview(e.clientX, e.clientY + yOffset, pieceObj);
             });
 
@@ -613,7 +617,6 @@
                 holder.style.opacity = '1';
                 clearPreviews();
 
-                // Yerleştirme tetiği matematiksel odak noktası ile çalışır
                 const success = executePlacement(e.clientX, e.clientY + yOffset, pieceObj);
                 if (success) {
                     holder.remove();
@@ -629,24 +632,20 @@
 
             function moveClone(x, y) {
                 if (!activeClone) return;
-                // Klonun tam ortasını parmağa/fareye hizalar ve yOffset kadar yukarı kaldırır
-                const cloneWidth = pieceObj.cols * 20; 
-                const cloneHeight = pieceObj.rows * 20;
+                const cloneWidth = pieceObj.cols * 18; 
+                const cloneHeight = pieceObj.rows * 18;
                 activeClone.style.left = `${x - (cloneWidth / 2)}px`;
                 activeClone.style.top = `${y - (cloneHeight / 2) + yOffset}px`;
             }
         }
 
-        // --- GERÇEK ZAMANLI MATEMATİKSEL IZGARA HESAPLAYICI ---
         function getTargetCellFromCoords(x, y) {
             const rect = boardLocal.getBoundingClientRect();
             
-            // Koordinat 8x8 panel sınırları içerisinde mi?
             if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
                 const cellWidth = rect.width / 8;
                 const cellHeight = rect.height / 8;
                 
-                // Koordinatın tahtadaki tam indis karşılığı (0-7 arası)
                 const c = Math.floor((x - rect.left) / cellWidth);
                 const r = Math.floor((y - rect.top) / cellHeight);
                 
