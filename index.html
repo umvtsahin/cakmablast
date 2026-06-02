@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Block Blast Duo - Arcade Masterpiece</title>
+    <title>Block Blast Duo - Professional Edition</title>
     <style>
-        /* TEMA DEĞİŞKENLERİ - SİBER GECE MODU (VARSAYILAN) */
+        /* MODERN ARTIK PROFESYONEL CODES - SİBER GECE (VARSAYILAN) */
         :root {
-            --bg-main: #060913;
-            --bg-panel: rgba(19, 28, 46, 0.85);
-            --bg-cell: #131926;
-            --border-color: rgba(59, 130, 246, 0.2);
-            --primary: #facc15;
-            --primary-glow: rgba(250, 204, 21, 0.4);
+            --bg-main: #0a0f1d;
+            --bg-panel: rgba(16, 22, 42, 0.75);
+            --bg-cell: #172033;
+            --border-color: rgba(59, 130, 246, 0.25);
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.35);
+            --accent: #facc15;
             --text-main: #f8fafc;
-            --text-muted: #64748b;
-            --cyber-blue: #3b82f6;
-            --shadow-color: rgba(0, 0, 0, 0.7);
+            --text-muted: #94a3b8;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --radius-lg: 16px;
+            --radius-md: 12px;
         }
 
-        /* RETRO GÜNDÜZ MODU */
+        /* PREMIUM GÜNDÜZ MODU */
         body.day-mode {
-            --bg-main: #e2e8f0;
-            --bg-panel: rgba(255, 255, 255, 0.9);
+            --bg-main: #f1f5f9;
+            --bg-panel: rgba(255, 255, 255, 0.85);
             --bg-cell: #cbd5e1;
-            --border-color: rgba(15, 23, 42, 0.15);
-            --primary: #d97706;
-            --primary-glow: rgba(217, 119, 6, 0.3);
+            --border-color: rgba(15, 23, 42, 0.12);
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.2);
+            --accent: #d97706;
             --text-main: #0f172a;
-            --text-muted: #475569;
-            --cyber-blue: #2563eb;
-            --shadow-color: rgba(15, 23, 42, 0.2);
+            --text-muted: #64748b;
+            --shadow-color: rgba(15, 23, 42, 0.1);
         }
 
         * {
@@ -45,149 +47,152 @@
         body {
             background-color: var(--bg-main);
             background-image: 
-                linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
+                radial-gradient(rgba(59, 130, 246, 0.06) 1px, transparent 1px),
+                radial-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
             color: var(--text-main);
-            font-family: 'Courier New', Courier, monospace, -apple-system, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             min-height: 100vh;
             min-height: -webkit-fill-available;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            transition: background-color 0.5s ease;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ENTEGRE MENÜ & AYARLAR PANELİ */
+        /* ULTRA MODERN MENÜ TASARIMI */
         #menu-screen {
             background: var(--bg-panel);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 35px 25px;
-            border-radius: 24px;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 25px 50px var(--shadow-color), 0 0 30px rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px 30px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
             text-align: center;
-            width: 92%;
-            max-width: 420px;
+            width: 90%;
+            max-width: 400px;
             z-index: 100;
-        }
-
-        .logo-area {
-            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
         .logo-area h1 {
-            font-size: 38px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             text-transform: uppercase;
-            font-style: italic;
+            color: var(--text-main);
         }
 
         .logo-area h1 span {
             color: var(--primary);
-            text-shadow: 0 0 10px var(--primary-glow);
+            position: relative;
         }
 
         .logo-area p {
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 5px;
+            letter-spacing: 2px;
+            margin-top: 6px;
+            font-weight: 600;
         }
 
-        /* AYARLAR KARTI */
+        /* PROFESYONEL AYAR PANELİ */
         .settings-card {
-            background: rgba(5, 8, 19, 0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255,255,255,0.02);
+            border-radius: var(--radius-md);
+            padding: 8px 16px;
         }
 
         .setting-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
+        body.day-mode .setting-row { border-bottom-color: rgba(0,0,0,0.05); }
         .setting-row:last-child { border-bottom: none; }
 
         .setting-label {
             font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-main);
         }
 
-        /* PREMIUM TOGGLE BUTTONS */
+        /* PREMIUM PILL TOGGLES */
         .toggle-btn {
-            background: #1e293b;
-            color: #94a3b8;
-            border: 1px solid #334155;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 30px;
             font-size: 11px;
-            font-weight: 900;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
         }
+        body.day-mode .toggle-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.08); }
         .toggle-btn.active {
-            background: var(--cyber-blue);
+            background: var(--primary);
             color: #fff;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-            border-color: #60a5fa;
+            box-shadow: 0 0 12px var(--primary-glow);
+            border-color: transparent;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            position: relative;
         }
 
         input {
             width: 100%;
             padding: 16px;
-            background: rgba(5, 8, 19, 0.4);
-            border: 2px solid var(--border-color);
-            color: var(--primary);
-            border-radius: 12px;
-            font-size: 18px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: var(--radius-md);
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
+        body.day-mode input { background: #fff; }
         input:focus {
             outline: none;
-            border-color: var(--cyber-blue);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 16px var(--primary-glow);
         }
 
         .btn-premium {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            padding: 16px;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 900;
-            letter-spacing: 1px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             cursor: pointer;
-            box-shadow: 0 6px 0 #1e40af, 0 12px 20px var(--shadow-color);
-            transition: all 0.1s ease;
-            text-transform: uppercase;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            transition: all 0.2s ease;
+        }
+        .btn-premium:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
         }
         .btn-premium:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #1e40af, 0 4px 10px var(--shadow-color);
+            transform: translateY(1px);
         }
 
-        /* OYUN AKIŞ EKRANI */
+        /* OYUN EKRANI AYARLARI */
         #game-screen {
             display: none;
             width: 100%;
@@ -196,7 +201,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
+            padding: 16px;
             overflow: hidden;
         }
 
@@ -205,23 +210,24 @@
             max-width: 480px;
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            padding: 12px 18px;
-            border-radius: 14px;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 600;
             box-shadow: 0 8px 32px var(--shadow-color);
         }
 
         .status-badge {
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 5px 12px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 4px 10px;
             border-radius: 6px;
-            font-weight: 900;
+            font-weight: 700;
+            font-size: 11px;
             color: #60a5fa;
-            animation: pulse 1.5s infinite alternate;
         }
 
         .boards-wrapper {
@@ -229,7 +235,7 @@
             flex-direction: column;
             width: 100%;
             max-width: 480px;
-            gap: 12px;
+            gap: 16px;
             flex-grow: 1;
             justify-content: center;
             align-items: center;
@@ -238,124 +244,115 @@
 
         .arena-panel {
             background: var(--bg-panel);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 10px;
-            box-shadow: 0 12px 24px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            box-shadow: 0 16px 36px var(--shadow-color);
             display: flex;
             flex-direction: column;
             width: 100%;
-            max-width: 280px;
+            max-width: 300px;
         }
-        @media (min-height: 720px) {
-            .arena-panel { max-width: 335px; padding: 14px; }
+        @media (min-height: 740px) {
+            .arena-panel { max-width: 340px; padding: 16px; }
         }
 
         .arena-panel.opponent-panel {
-            max-width: 150px;
-            opacity: 0.65;
+            max-width: 160px;
+            opacity: 0.6;
             pointer-events: none;
         }
-        @media (min-height: 720px) {
-            .arena-panel.opponent-panel { max-width: 180px; }
+        @media (min-height: 740px) {
+            .arena-panel.opponent-panel { max-width: 190px; }
         }
 
         .panel-title {
             font-size: 11px;
-            font-weight: 900;
-            text-transform: uppercase;
+            font-weight: 700;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
         }
-        .panel-title span.score { color: var(--primary); font-size: 14px; }
+        .panel-title span.score { color: var(--text-main); font-size: 15px; font-weight: 800; }
 
-        .score-val { display: inline-block; font-weight: 900; }
+        .score-val { display: inline-block; }
         .score-val.score-pop {
-            animation: scoreBadgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+            animation: scorePop 0.3s ease-out;
         }
 
-        @keyframes scoreBadgePop {
+        @keyframes scorePop {
             0% { transform: scale(1); }
-            50% { transform: scale(1.35); color: #fff; }
+            50% { transform: scale(1.2); color: var(--accent); }
             100% { transform: scale(1); }
         }
 
-        /* GRID MOTORU */
+        /* KUSURSUZ GRID MOTORU */
         .grid-board {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: repeat(8, 1fr);
-            gap: 3px;
-            background: rgba(5, 8, 19, 0.5);
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.15);
             padding: 6px;
-            border-radius: 10px;
+            border-radius: var(--radius-md);
             aspect-ratio: 1 / 1;
             width: 100%;
         }
 
         .grid-board.shake-active {
-            animation: boardExplosionShake 0.35s ease-in-out;
+            animation: explodeShake 0.3s ease-in-out;
         }
 
-        @keyframes boardExplosionShake {
-            0%, 100% { transform: translate(0, 0); }
-            20% { transform: translate(-4px, 3px); }
-            40% { transform: translate(4px, -3px); }
-            60% { transform: translate(-3px, -1px); }
-            80% { transform: translate(2px, 2px); }
+        @keyframes explodeShake {
+            0%, 100% { transform: scale(1); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
         }
 
         .cell {
             background: var(--bg-cell);
-            border-radius: 3px;
-            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.03);
+            border-radius: 4px;
             position: relative;
+            transition: background-color 0.15s ease, transform 0.1s ease;
         }
 
-        /* UNIVERSAL RETRO 3D PIXEL SHADING CLASS */
+        /* 3D BLOK GÖRÜNÜMÜ */
         .cell.filled-block, .p-cell.active-block {
-            box-shadow: inset 3px 3px 0 rgba(255,255,255,0.4), 
-                        inset -3px -3px 0 rgba(0,0,0,0.35), 
-                        0 3px 6px rgba(0,0,0,0.3);
-            border-radius: 3px;
+            box-shadow: inset 2px 2px 0 rgba(255,255,255,0.25), inset -2px -2px 0 rgba(0,0,0,0.3);
+            border-radius: 4px;
         }
 
-        /* GHOST PREVIEW ENGINE */
+        /* GHOST PREVIEW KATMANI - BOYANMA SIKINTISINI ÇÖZEN YAPI */
         .cell.preview-ghost {
-            opacity: 0.6;
-            box-shadow: inset 2px 2px 0 rgba(255,255,255,0.5), inset -2px -2px 0 rgba(0,0,0,0.3);
-            border: 1px solid #fff;
-            animation: ghostPulse 0.5s infinite alternate ease-in-out;
+            opacity: 0.55;
+            box-shadow: inset 0 0 0 2px #fff;
         }
 
-        @keyframes ghostPulse {
-            from { opacity: 0.4; }
-            to { opacity: 0.75; }
-        }
-
-        /* ENVENTER ALANI */
+        /* ENVANTER ALANI */
         .inventory-area {
             width: 100%;
             max-width: 480px;
             background: var(--bg-panel);
-            border-top: 2px solid var(--border-color);
-            border-radius: 20px 20px 0 0;
-            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            padding: 16px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            min-height: 110px;
+            min-height: 115px;
             box-shadow: 0 -10px 30px var(--shadow-color);
-            margin-top: auto;
         }
 
         .piece-holder {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 30%;
+            width: 28%;
             aspect-ratio: 1 / 1;
             cursor: grab;
         }
@@ -370,84 +367,80 @@
         .p-cell {
             width: 16px;
             height: 16px;
-            border-radius: 2px;
+            border-radius: 3px;
         }
-        @media (min-height: 720px) {
+        @media (min-height: 740px) {
             .p-cell { width: 20px; height: 20px; }
-            .inventory-area { min-height: 130px; }
+            .inventory-area { min-height: 135px; }
         }
 
         .dragging-active {
             position: fixed;
             pointer-events: none;
-            transform: scale(1.15);
+            transform: scale(1.1);
             z-index: 1000;
-            filter: drop-shadow(0 10px 15px var(--shadow-color));
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.4));
         }
 
         .floating-score {
             position: fixed;
             pointer-events: none;
-            color: var(--primary);
-            font-weight: 900;
-            font-size: 24px;
-            font-style: italic;
-            text-shadow: 0 0 8px var(--shadow-color), 0 0 3px var(--primary);
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 22px;
             z-index: 3000;
-            animation: floatUpAndFade 0.8s ease-out forwards;
+            animation: scoreFloat 0.7s ease-out forwards;
         }
 
-        @keyframes floatUpAndFade {
-            0% { transform: translate(-50%, 0) scale(0.6); opacity: 0; }
-            20% { transform: translate(-50%, -25px) scale(1.2); opacity: 1; }
-            100% { transform: translate(-50%, -85px) scale(1); opacity: 0; }
+        @keyframes scoreFloat {
+            0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
+            20% { transform: translate(-50%, -20px) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -70px) scale(1); opacity: 0; }
         }
 
         #game-over-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(6, 9, 19, 0.96);
+            background: rgba(10, 15, 29, 0.95);
             z-index: 2000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
         }
 
         .overlay-card {
             background: var(--bg-panel);
-            border: 2px solid rgba(239, 68, 68, 0.3);
-            padding: 35px 25px;
-            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 350px;
-            box-shadow: 0 20px 40px var(--shadow-color);
+            max-width: 360px;
+            box-shadow: 0 30px 60px var(--shadow-color);
             text-align: center;
         }
 
         @media (min-width: 768px) {
-            .boards-wrapper { flex-direction: row; max-width: 960px; gap: 40px; }
-            .arena-panel { max-width: 360px; padding: 16px; }
-            .arena-panel.opponent-panel { max-width: 360px; opacity: 1; pointer-events: auto; }
-            #game-screen { padding: 30px; }
-            .header-bar, .inventory-area { max-width: 960px; }
+            .boards-wrapper { flex-direction: row; max-width: 900px; gap: 32px; }
+            .arena-panel { max-width: 340px; padding: 16px; }
+            .arena-panel.opponent-panel { max-width: 340px; opacity: 1; pointer-events: auto; }
+            #game-screen { padding: 24px; }
+            .header-bar, .inventory-area { max-width: 900px; }
             .p-cell { width: 22px; height: 22px; }
-            .panel-title { font-size: 13px; }
+            .panel-title { font-size: 12px; }
             .panel-title span.score { font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MODERN ANAMENÜ & CONFIG PANELİ -->
     <div id="menu-screen">
         <div class="logo-area">
             <h1>BLOCK <span>BLAST</span></h1>
-            <p>Arcade Duel Masterpiece</p>
+            <p>Premium Arcade Duel</p>
         </div>
 
-        <!-- AYARLAR KATMANI -->
         <div class="settings-card">
             <div class="setting-row">
                 <div class="setting-label">Tema Görünümü</div>
@@ -464,32 +457,29 @@
         </div>
 
         <div class="input-group">
-            <input type="text" id="room-id-input" placeholder="ODA KODU YAZIN" maxlength="12">
+            <input type="text" id="room-id-input" placeholder="ODA KODUNU GİRİN" maxlength="12">
         </div>
-        <button class="btn-premium" id="btn-connect">SAVAŞA KATIL</button>
+        <button class="btn-premium" id="btn-connect">DÜELLO BAŞLATSIN</button>
     </div>
 
-    <!-- ARENA EKRANI -->
     <div id="game-screen">
         <div class="header-bar">
-            <div style="font-weight: 900;">ODA: <span id="display-room-id" style="color:var(--cyber-blue)">-</span></div>
+            <div>ODA: <span id="display-room-id" style="color:var(--primary)">-</span></div>
             <div class="status-badge" id="match-status">BAĞLANTI BEKLENİYOR</div>
         </div>
 
         <div class="boards-wrapper">
-            <!-- RAKİP SAHASI -->
             <div class="arena-panel opponent-panel" id="remote-panel">
                 <div class="panel-title">
-                    <span>RAKİP SAHASI</span>
+                    <span>RAKİBİN SAHASI</span>
                     <span class="score"><span class="score-val" id="score-remote">0</span></span>
                 </div>
                 <div class="grid-board" id="board-remote"></div>
             </div>
 
-            <!-- OYUNCU SAHASI -->
             <div class="arena-panel" id="local-panel">
                 <div class="panel-title">
-                    <span>SENİN MATRİSİN</span>
+                    <span>SENİN SAHAN</span>
                     <span class="score">SKOR: <span class="score-val" id="score-local">0</span></span>
                 </div>
                 <div class="grid-board" id="board-local"></div>
@@ -499,22 +489,21 @@
         <div class="inventory-area" id="inventory"></div>
     </div>
 
-    <!-- OYUN BİTTİ EKRANI -->
     <div id="game-over-overlay">
         <div class="overlay-card">
-            <h2 id="game-over-title" style="color:#ef4444; font-size:24px; margin-bottom:12px; font-weight:900;">HAMLE KALMADI</h2>
-            <p id="game-over-msg" style="color:var(--text-muted); font-size:14px; margin-bottom:25px; text-transform:uppercase;">Sonuçlar Hesaplanıyor...</p>
+            <h2 id="game-over-title" style="color:#ef4444; font-size:22px; margin-bottom:10px; font-weight:800;">HAMLE KALMADI</h2>
+            <p id="game-over-msg" style="color:var(--text-muted); font-size:13px; margin-bottom:20px; font-weight:600; text-transform:uppercase;">Durum Kontrol Ediliyor...</p>
             
-            <div style="background:rgba(5, 8, 19, 0.4); padding:16px; border-radius:12px; margin-bottom:25px; text-align:left; border:1px solid var(--border-color);">
-                <div style="display:flex; justify-content:between; margin-bottom:8px;">
-                    <span>SKORUNUZ:</span> <b id="final-local-score" style="margin-left:auto; color:var(--primary);">0</b>
+            <div style="background:rgba(0, 0, 0, 0.15); padding:16px; border-radius:var(--radius-md); margin-bottom:24px; text-align:left;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
+                    <span>Skorunuz:</span> <b id="final-local-score" style="color:var(--accent);">0</b>
                 </div>
-                <div style="display:flex; justify-content:between;">
-                    <span>RAKİBİN SKORU:</span> <b id="final-remote-score" style="margin-left:auto;">0</b>
+                <div style="display:flex; justify-content:space-between; font-size:14px;">
+                    <span>Rakibin Skoru:</span> <b id="final-remote-score">0</b>
                 </div>
             </div>
 
-            <button class="btn-premium" onclick="window.location.reload()">TEKRAR DÜELLO</button>
+            <button class="btn-premium" onclick="window.location.reload()">YENİDEN SAVAŞ</button>
         </div>
     </div>
 
@@ -522,7 +511,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // ENTEGRE EN SON GÜNCEL FIREBASE YAPILANDIRMASI
         const firebaseConfig = {
             apiKey: "AIzaSyDqVkR87Oxwv_F-5Ty-fPDG70_WTy9p7i8",
             authDomain: "cakmablast.firebaseapp.com",
@@ -537,7 +525,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // --- GELİŞMİŞ CHIPTUNE SES MOTORU (WEB AUDIO API SENTEZLEYİCİ) ---
+        // --- RETRO SOUND ENGINE ---
         const SoundFX = {
             ctx: null,
             fxEnabled: true,
@@ -549,26 +537,26 @@
                 if (!this.fxEnabled) return; this.init();
                 let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
                 osc.type = 'triangle'; osc.frequency.setValueAtTime(440, this.ctx.currentTime);
-                gain.gain.setValueAtTime(0.05, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.04, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
                 osc.start(); osc.stop(this.ctx.currentTime + 0.05);
             },
             playPlace() {
                 if (!this.fxEnabled) return; this.init();
                 let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.type = 'sine'; osc.frequency.setValueAtTime(300, this.ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.15, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
-                osc.start(); osc.stop(this.ctx.currentTime + 0.1);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(280, this.ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(140, this.ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.12, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.08);
             },
             playExplode() {
                 if (!this.fxEnabled) return; this.init();
                 let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.type = 'square'; osc.frequency.setValueAtTime(120, this.ctx.currentTime); osc.frequency.linearRampToValueAtTime(600, this.ctx.currentTime + 0.3);
-                gain.gain.setValueAtTime(0.12, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
-                osc.start(); osc.stop(this.ctx.currentTime + 0.3);
+                osc.type = 'square'; osc.frequency.setValueAtTime(110, this.ctx.currentTime); osc.frequency.linearRampToValueAtTime(550, this.ctx.currentTime + 0.25);
+                gain.gain.setValueAtTime(0.1, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.25);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.25);
             },
             startBGM() {
                 this.init(); if (this.bgmInterval) return;
-                const notes = [261.63, 293.66, 329.63, 392.00, 329.63, 293.66, 392.00, 440.00]; // Retro Arpej
+                const notes = [261.63, 293.66, 329.63, 392.00, 329.63, 293.66, 392.00, 440.00];
                 this.bgmInterval = setInterval(() => {
                     if (!this.bgmEnabled) return;
                     let osc = this.ctx.createOscillator(); let gain = this.ctx.createGain(); osc.connect(gain); gain.connect(this.ctx.destination);
@@ -580,7 +568,7 @@
             stopBGM() { if (this.bgmInterval) { clearInterval(this.bgmInterval); this.bgmInterval = null; } }
         };
 
-        // --- AYAR PANELİ INTERACTION KONTROLLERİ ---
+        // --- PANEL TOGGLES INTERACTION ---
         document.getElementById('toggle-night').addEventListener('click', (e) => {
             document.body.classList.toggle('day-mode');
             const isNight = !document.body.classList.contains('day-mode');
@@ -604,22 +592,22 @@
             if (SoundFX.bgmEnabled) SoundFX.startBGM(); else SoundFX.stopBGM();
         });
 
-        // --- GELİŞMİŞ PİKSEL RENKLERİ VE BLOK HAVUZU (T, S, Z, L, J DAHİL) ---
+        // --- ZENGİN BLOK HAVUZU VE RENKLER ---
         const PIECE_TEMPLATES = [
-            { matrix: [[1, 1], [1, 1]], color: "#eab308" }, // 2x2 Kare - Sarı
-            { matrix: [[1, 1, 1, 1]], color: "#06b6d4" },  // 4x1 Çubuk - Turkuaz
+            { matrix: [[1, 1], [1, 1]], color: "#eab308" },       // Kare - Sarı
+            { matrix: [[1, 1, 1, 1]], color: "#06b6d4" },        // Çubuk - Turkuaz
             { matrix: [[1, 1, 1], [0, 1, 0]], color: "#a855f7" }, // T-Blok - Mor
             { matrix: [[0, 1, 1], [1, 1, 0]], color: "#22c55e" }, // S-Blok - Yeşil
             { matrix: [[1, 1, 0], [0, 1, 1]], color: "#ef4444" }, // Z-Blok - Kırmızı
             { matrix: [[1, 0], [1, 0], [1, 1]], color: "#f97316" }, // L-Blok - Turuncu
             { matrix: [[0, 1], [0, 1], [1, 1]], color: "#3b82f6" }, // J-Blok - Mavi
-            { matrix: [[1, 1, 1]], color: "#10b981" },     // 3x1 Kısa Çubuk - Zümrüt
-            { matrix: [[1]], color: "#64748b" }             // 1x1 Mini - Gri
+            { matrix: [[1, 1, 1]], color: "#10b981" },           // Kısa Çubuk - Zümrüt
+            { matrix: [[1]], color: "#64748b" }                   // Mini - Gri
         ];
 
         let roomCode = "";
         let playerSide = ""; 
-        let localGrid = Array(8).fill().map(() => Array(8).fill(0)); // 0 = Boş, String = Hücre Rengi
+        let localGrid = Array(8).fill().map(() => Array(8).fill(0));
         let localScore = 0;
         let currentPieces = []; 
 
@@ -636,7 +624,7 @@
             SoundFX.init();
             if (SoundFX.bgmEnabled) SoundFX.startBGM();
             roomCode = roomInput.value.trim().toLowerCase();
-            if (!roomCode) { alert("Geçerli bir oda kodu yazın!"); return; }
+            if (!roomCode) { alert("Geçerli bir oda kodu girin!"); return; }
 
             const roomRef = ref(db, 'blast_rooms/' + roomCode);
 
@@ -655,7 +643,7 @@
                         update(roomRef, { status: "playing" });
                     }
                 } else if (playerSide === "") {
-                    alert("Seçilen oda dolu!"); window.location.reload();
+                    alert("Seçtiğiniz oda dolu!"); window.location.reload();
                 }
                 launchGameStream();
             }, { onlyOnce: true });
@@ -692,9 +680,9 @@
                 if (data.p1 && data.p2) {
                     if (data.p1.isGameOver && data.p2.isGameOver) {
                         let msg = "";
-                        if (data.p1.score > data.p2.score) msg = "🥇 1. OYUNCU (P1) KAZANDI!";
-                        else if (data.p2.score > data.p1.score) msg = "🥇 2. OYUNCU (P2) KAZANDI!";
-                        else msg = "🤝 DOSTLUK KAZANDI! BERABERE.";
+                        if (data.p1.score > data.p2.score) msg = "🥇 1. OYUNCU KAZANDI!";
+                        else if (data.p2.score > data.p1.score) msg = "🥇 2. OYUNCU KAZANDI!";
+                        else msg = "🤝 BERABERE BİTTİ!";
 
                         document.getElementById('game-over-overlay').style.display = 'flex';
                         document.getElementById('game-over-title').innerText = "MAÇ BİTTİ";
@@ -717,7 +705,7 @@
             el.classList.remove('score-pop'); void el.offsetWidth; el.classList.add('score-pop');
 
             let start = currentScore;
-            const duration = 400;
+            const duration = 300;
             const startTime = performance.now();
 
             function run(now) {
@@ -730,12 +718,15 @@
         }
 
         function triggerJuiceEffects(pointsText) {
-            boardLocal.classList.remove('shake-active'); void boardLocal.offsetWidth; boardLocal.add = boardLocal.classList.add('shake-active');
+            boardLocal.classList.remove('shake-active'); 
+            void boardLocal.offsetWidth; 
+            boardLocal.classList.add('shake-active');
+            
             const rect = boardLocal.getBoundingClientRect();
             const floater = document.createElement('div');
             floater.className = 'floating-score'; floater.innerText = pointsText;
             floater.style.left = `${rect.left + rect.width / 2}px`; floater.style.top = `${rect.top + rect.height / 2}px`;
-            document.body.appendChild(floater); setTimeout(() => floater.remove(), 800);
+            document.body.appendChild(floater); setTimeout(() => floater.remove(), 700);
         }
 
         function createLocalBoard() {
@@ -789,10 +780,10 @@
         }
 
         function setupDragAndDrop(holder, pieceObj) {
-            let activeClone = null; const yOffset = -75;
+            let activeClone = null; const yOffset = -70;
 
             holder.addEventListener('pointerdown', (e) => {
-                e.preventDefault(); SoundFX.playClick(); holder.style.opacity = '0.25';
+                e.preventDefault(); SoundFX.playClick(); holder.style.opacity = '0.2';
                 activeClone = holder.querySelector('.piece-matrix').cloneNode(true);
                 activeClone.classList.add('dragging-active'); document.body.appendChild(activeClone);
                 moveClone(e.clientX, e.clientY); holder.setPointerCapture(e.pointerId);
@@ -832,7 +823,22 @@
             return null;
         }
 
-        function clearPreviews() { document.querySelectorAll('#board-local .cell').forEach(c => c.classList.remove('preview-ghost')); }
+        // BOYANMA HATASINI TAMAMEN ÇÖZEN VE EN TEMİZ MATRİS TEMİZLİĞİNİ YAPAN KOD BLOĞU
+        function clearPreviews() { 
+            const cells = document.querySelectorAll('#board-local .cell');
+            let idx = 0;
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    cells[idx].classList.remove('preview-ghost');
+                    if (localGrid[r][c] === 0) {
+                        cells[idx].style.backgroundColor = '';
+                    } else {
+                        cells[idx].style.backgroundColor = localGrid[r][c];
+                    }
+                    idx++;
+                }
+            }
+        }
 
         function highlightPlacementPreview(x, y, pieceObj) {
             clearPreviews(); const target = getTargetCellFromCoords(x, y);
@@ -902,7 +908,7 @@
 
             if (fullRows.length > 0 || fullCols.length > 0) {
                 const bonus = (fullRows.length + fullCols.length) * 120; localScore += bonus;
-                SoundFX.playExplode(); triggerJuiceEffects(`+${bonus} COMBO!`);
+                SoundFX.playExplode(); triggerJuiceEffects(`+${bonus} LİNE!`);
             }
         }
 
@@ -917,7 +923,7 @@
                 document.getElementById('final-local-score').innerText = localScore;
                 document.getElementById('final-remote-score').innerText = document.getElementById('score-remote').innerText;
                 document.getElementById('game-over-overlay').style.display = 'flex';
-                matchStatus.innerText = "HAMLE BİTTİ"; matchStatus.style.color = "#ef4444";
+                matchStatus.innerText = "OYUN BİTTİ"; matchStatus.style.color = "#ef4444";
             }
         }
 
